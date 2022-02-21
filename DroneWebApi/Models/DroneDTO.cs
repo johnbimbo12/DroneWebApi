@@ -1,11 +1,37 @@
-﻿using System;
+﻿using DroneWebApi.Data;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using static DroneWebApi.Data.Enums;
 
 namespace DroneWebApi.Models
 {
-    public class DroneDTO
+    public class DroneDTO : CreateDroneDTO
     {
+        public int Id { get; set; }
+        public IList<Medication> Medications { get; set; }
+    }
+
+    public class CreateDroneDTO
+    {
+        [Required]
+        [StringLength(maximumLength:100, ErrorMessage = "Serial Number is too long")]
+        public string SerialNumber { get; set; }
+
+        [Required]
+        public Model Model { get; set; }
+        
+        [Required]
+        [Range(1,500)]
+        public double WeightLimit { get; set; }
+
+        [Required]
+        [Range(1,100)]
+        public double BatteryCapacity { get; set; }
+        
+        [Required]
+        public State State { get; set; }
     }
 }

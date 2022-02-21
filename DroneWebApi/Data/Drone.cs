@@ -8,10 +8,12 @@ namespace DroneWebApi.Data
 {
     public class Drone
     {
+        public int Id { get; set; }
         public string SerialNumber { get; set; }
         public Model Model { get; set; }
         public double WeightLimit { get; set; }
         public double BatteryCapacity { get; set; }
         public State State { get; set; }
+        public virtual IList<Drone> Drones { get; set; }
     }
 }
