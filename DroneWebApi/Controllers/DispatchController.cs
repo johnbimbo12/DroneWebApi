@@ -9,7 +9,7 @@ namespace DroneWebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DroneController : ControllerBase
+    public class DispatchController : ControllerBase
     {
     }
 }
