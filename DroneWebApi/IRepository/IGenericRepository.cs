@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DroneWebApi.IRepository
 {
-    interface IGenericRepository<T> where T : class
+    public interface IGenericRepository<T> where T : class
     {
         Task<IList<T>> GetAll(Expression<Func<T, bool>> expression = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
