@@ -22,6 +22,7 @@ namespace DroneWebApi.Data
         {
             base.OnModelCreating(builder);
             builder.ApplyConfiguration(new DroneConfiguration());
+            builder.ApplyConfiguration(new MedicationConfiguration());
         }
     }
 }

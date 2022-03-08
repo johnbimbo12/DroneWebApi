@@ -14,6 +14,6 @@ namespace DroneWebApi.Data
         public double WeightLimit { get; set; }
         public double BatteryCapacity { get; set; }
         public State State { get; set; }
-        public virtual IList<Drone> Drones { get; set; }
+        public virtual IList<Medication> Medications { get; set; }
     }
 }

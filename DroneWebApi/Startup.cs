@@ -1,5 +1,7 @@
 using DroneWebApi.Configurations;
 using DroneWebApi.Data;
+using DroneWebApi.IRepository;
+using DroneWebApi.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -37,8 +39,9 @@ namespace DroneWebApi
             services.ConfigureIdentity();
 
             services.AddAutoMapper(typeof(MapperInitializer));
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(op => op.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DroneWebApi", Version = "v1" });
