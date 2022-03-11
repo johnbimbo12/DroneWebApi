@@ -9,7 +9,7 @@ namespace DroneWebApi.Models
     public class MedicationDTO : CreateMedicationDTO
     {
         public int Id { get; set; }
-        public DroneDTO Drone { get; set; }
+        //public DroneDTO Drone { get; set; }
     }
 
     public class CreateMedicationDTO

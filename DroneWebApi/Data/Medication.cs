@@ -16,6 +16,6 @@ namespace DroneWebApi.Data
 
         [ForeignKey(nameof(Drone))]
         public int DroneId { get; set; }
-        public Drone Drone { get; set; }
+        //public Drone Drone { get; set; }
     }
 }
