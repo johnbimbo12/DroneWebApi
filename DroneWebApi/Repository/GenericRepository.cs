@@ -71,6 +71,11 @@ namespace DroneWebApi.Repository
             await _db.AddAsync(entity);
         }
 
+        public async Task InsertRange(IEnumerable<T> entities)
+        {
+            await _db.AddRangeAsync(entities);
+        }
+
         public void Update(T entity)
         {
             _db.Attach(entity);

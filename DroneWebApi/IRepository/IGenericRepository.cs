@@ -16,6 +16,8 @@ namespace DroneWebApi.IRepository
 
         Task Insert(T entity);
 
+        Task InsertRange(IEnumerable<T> entities);
+
         Task Delete(int id);
 
         void Update(T entity);

@@ -15,6 +15,7 @@ namespace DroneWebApi.Models
     public class DroneDTO : CreateDroneDTO
     {
         public int Id { get; set; }
+        public string State { get; set; }
     }
 
     public class CreateDroneDTO
