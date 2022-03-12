@@ -23,7 +23,10 @@ namespace DroneWebApi.Models
         [Required]
         public string Code { get; set; }
 
-        [Required]
+        //[Required]
         public string Image { get; set; }
+
+        [Required]
+        public int DroneId { get; set; }
     }
 }

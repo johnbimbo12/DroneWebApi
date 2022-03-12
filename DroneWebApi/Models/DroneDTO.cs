@@ -8,10 +8,14 @@ using static DroneWebApi.Data.Enums;
 
 namespace DroneWebApi.Models
 {
+    public class DroneWithMedicationsDTO : DroneDTO
+    {
+        public IList<Medication> Medications { get; set; }
+    }
+
     public class DroneDTO : CreateDroneDTO
     {
         public int Id { get; set; }
-        public IList<Medication> Medications { get; set; }
     }
 
     public class CreateDroneDTO
