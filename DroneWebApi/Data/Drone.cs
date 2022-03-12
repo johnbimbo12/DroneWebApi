@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using static DroneWebApi.Data.Enums;
 
 namespace DroneWebApi.Data
 {
@@ -10,10 +9,22 @@ namespace DroneWebApi.Data
     {
         public int Id { get; set; }
         public string SerialNumber { get; set; }
-        public Model Model { get; set; }
+        public string Model { get; set; }
         public double WeightLimit { get; set; }
         public double BatteryCapacity { get; set; }
-        public State State { get; set; }
+        private string _state { get; set; } = "IDLE";
+
+        public string State
+        {
+            get
+            {
+                return _state;
+            }
+            set
+            {
+                _state = value;
+            }
+        }
         public virtual IList<Medication> Medications { get; set; }
     }
 }

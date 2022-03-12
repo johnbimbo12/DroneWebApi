@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using static DroneWebApi.Data.Enums;
 
 namespace DroneWebApi.Models
 {
@@ -25,7 +24,7 @@ namespace DroneWebApi.Models
         public string SerialNumber { get; set; }
 
         [Required]
-        public Model Model { get; set; }
+        public string Model { get; set; }
         
         [Required]
         [Range(1,500)]
@@ -33,9 +32,7 @@ namespace DroneWebApi.Models
 
         [Required]
         [Range(1,100)]
-        public double BatteryCapacity { get; set; }
-        
-        [Required]
-        public State State { get; set; }
+        public double BatteryCapacity { get; set; }        
     }
+
 }
