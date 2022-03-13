@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace DroneWebApi.Models
 {
-    public class MedicationDTO : CreateMedicationDTO
+    public class MedicationDTO : LoadMedicationDTO
     {
         public int Id { get; set; }
         //public DroneDTO Drone { get; set; }
     }
 
-    public class CreateMedicationDTO
+    public class LoadMedicationDTO
     {
         [Required]
         public string Name { get; set; }

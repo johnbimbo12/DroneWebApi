@@ -12,11 +12,11 @@ namespace DroneWebApi.Configurations
     {
         public MapperInitializer()
         {
-            CreateMap<Drone, CreateDroneDTO>().ReverseMap();
+            CreateMap<Drone, RegisterDroneDTO>().ReverseMap();
             CreateMap<Drone, DroneDTO>().ReverseMap();
             CreateMap<Drone, DroneWithMedicationsDTO>().ReverseMap();
             CreateMap<Medication, MedicationDTO>().ReverseMap();
-            CreateMap<Medication, CreateMedicationDTO>().ReverseMap();
+            CreateMap<Medication, LoadMedicationDTO>().ReverseMap();
         }
     }
 }

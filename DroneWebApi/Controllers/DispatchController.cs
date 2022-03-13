@@ -73,7 +73,7 @@ namespace DroneWebApi.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> RegisterDrone([FromBody] CreateDroneDTO droneDTO)
+        public async Task<IActionResult> RegisterDrone([FromBody] RegisterDroneDTO droneDTO)
         {
             if (!ModelState.IsValid)
             {
@@ -85,8 +85,7 @@ namespace DroneWebApi.Controllers
             if (droneModel.Equals("Invalid Model"))
                 return BadRequest("Drone model unknown");
             
-            string modelName = droneModel.ToString();
-            drone.Model = modelName;
+            drone.Model = droneModel;
             await _unitOfWork.Drones.Insert(drone);
             await _unitOfWork.Save();
 
@@ -97,11 +96,11 @@ namespace DroneWebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> LoadMedication([FromBody] IList<CreateMedicationDTO> medicationDTO)
+        public async Task<IActionResult> LoadMedications([FromBody] IList<LoadMedicationDTO> medicationDTO)
         {
             if (!ModelState.IsValid)
             {
-                _logger.LogError($"Invalid POST attempt in {nameof(LoadMedication)}");
+                _logger.LogError($"Invalid POST attempt in {nameof(LoadMedications)}");
                 return BadRequest(ModelState);
             }
 
@@ -126,19 +125,25 @@ namespace DroneWebApi.Controllers
             var currentDroneCapacity = drone.Medications.Count > 0 ? drone.Medications.Sum(q => q.Weight) : 0;
             _logger.LogInformation($"Current Drone Loaded Weight is {currentDroneCapacity}gr");
 
+            //calculate total weight of medications to be loaded
+            var medicationsTotalWeight = medicationDTO.Sum(q => q.Weight);
+
+            //calculate free space on drone
+            var freeSpaceOnDrone = drone.WeightLimit - currentDroneCapacity;
+
             //If free space on the drone is less than the sum of the weight of medication items to be loaded, throw an error
-            if ((drone.WeightLimit - currentDroneCapacity) < medicationDTO.Sum(q => q.Weight))
+            if (freeSpaceOnDrone < medicationsTotalWeight)
             {
                 return BadRequest($"Weight limit for drone exceeded. Maximum: {drone.WeightLimit}gr, Current: {currentDroneCapacity}gr");
             }
 
             //update the current drone capacity
-            currentDroneCapacity += medicationDTO.Sum(q => q.Weight);
+            currentDroneCapacity += medicationsTotalWeight;
 
             //this sets the state of the drone to loaded once it reaches its capacity or loading if there's still space left
-            if ((drone.State == State.IDLE || drone.State == State.LOADING) && drone.WeightLimit - currentDroneCapacity > 0)
+            if ((drone.State == State.IDLE || drone.State == State.LOADING) && freeSpaceOnDrone > 0)
                 drone.State = State.LOADING;
-            else if ((drone.State == State.IDLE || drone.State == State.LOADING) && drone.WeightLimit - currentDroneCapacity == 0)
+            else if ((drone.State == State.IDLE || drone.State == State.LOADING) && freeSpaceOnDrone == 0)
                 drone.State = State.LOADED;
 
             var medication = _mapper.Map<IList<Medication>>(medicationDTO);

@@ -12,13 +12,13 @@ namespace DroneWebApi.Models
         public IList<Medication> Medications { get; set; }
     }
 
-    public class DroneDTO : CreateDroneDTO
+    public class DroneDTO : RegisterDroneDTO
     {
         public int Id { get; set; }
         public string State { get; set; }
     }
 
-    public class CreateDroneDTO
+    public class RegisterDroneDTO
     {
         [Required]
         [StringLength(maximumLength:100, ErrorMessage = "Serial Number is too long")]
