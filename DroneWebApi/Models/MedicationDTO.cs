@@ -15,12 +15,14 @@ namespace DroneWebApi.Models
     public class LoadMedicationDTO
     {
         [Required]
+        [RegularExpression(@"^[A-Za-z0-9_-]+$", ErrorMessage = "Only letters, numbers, hyphens and underscores are allowed")]
         public string Name { get; set; }
 
         [Required]
         public double Weight { get; set; }
 
         [Required]
+        [RegularExpression(@"^[A-Z0-9_]+$", ErrorMessage = "Only uppercase letters, numbers and underscores are allowed")]
         public string Code { get; set; }
 
         //[Required]
