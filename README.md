@@ -45,16 +45,22 @@ https://localhost:5001/api/Dispatch/LoadMedications
 ```
 ```json
 //checking loaded medication items for a given drone
+
+-GET
 https://localhost:5001/api/Dispatch/GetDrone/15
 ```
 
 ```json
 //checking available drones for loading
+
+-GET
 https://localhost:5001/api/Dispatch/GetAvailableDrones
 ```
 
 ```json
 //check drone battery level for a given drone
+
+-GET
 https://localhost:5001/api/Dispatch/GetDroneBatteryLevel/10
 ```
 
